@@ -1,10 +1,13 @@
+DROP TABLE IF EXISTS `Products`;
+
 CREATE TABLE Products (
-  product_id BIGSERIAL,
-  name VARCHAR,
-  slogan VARCHAR,
-  description VARCHAR,
-  category VARCHAR,
-  default_price BOOLEAN
+  `product_id` INTEGER NULL AUTO INCREMENT DEFAULT,
+  `name` VARCHAR,
+  `slogan` VARCHAR,
+  `description` VARCHAR,
+  `category` VARCHAR,
+  `default_price` BOOLEAN,
+  PRIMARY KEY (`product_id`)
  );
 
 

@@ -16,47 +16,32 @@ try {
   console.error(err);
 }
 
-const feature = new Schema({
-  product_id: Number,
-  feature: String,
-  value: String,
-});
-
 const products = new Schema({
-  product_id: Number,
+  product_id: { type: Number, unique: true },
   name: String,
   slogan: String,
   description: String,
   category: String,
-  default_price: Boolean,
-  features: [feature],
-});
-
-const sku = new Schema({
-  style_id: Number,
-  size: String,
-  quantity: Number,
-});
-
-const photo = new Schema({
-  style_id: Number,
-  url: String,
-  thumbnail_url: String,
+  default_price: String,
+  features: [{ feature: String, value: String }],
 });
 
 const styles = new Schema({
-  product_id: Number,
-  name: String,
-  sale_price: String,
-  original_price: String,
-  default_style: Boolean,
-  photos: [photo],
-  skus: sku,
+  product_id: { type: Number, unique: true },
+  result: [{
+    style_id: Number,
+    name: String,
+    sale_price: String,
+    original_price: String,
+    default_style: Boolean,
+    photos: [{ url: String, thumbnail_url: String }],
+    skus: [{ sku: { size: String, quantity: Number } }],
+  }],
 });
 
 const related = new Schema({
-  current_product_id: Number,
-  related_product_id: Number,
+  product_id: { type: Number, unique: true },
+  related: [Number],
 });
 
 mongoose.model('Products', products);
