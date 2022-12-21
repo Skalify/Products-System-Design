@@ -1,19 +1,20 @@
-DROP TABLE IF EXISTS `Products`;
+DROP DATABASE IF EXISTS Products;
 
-CREATE TABLE Products (
-  `product_id` INTEGER NULL AUTO INCREMENT DEFAULT,
-  `name` VARCHAR,
-  `slogan` VARCHAR,
-  `description` VARCHAR,
-  `category` VARCHAR,
-  `default_price` BOOLEAN,
-  PRIMARY KEY (`product_id`)
+CREATE DATABASE Products;
+
+CREATE TABLE IF NOT EXISTS Product (
+  product_id BIGSERIAL,
+  name VARCHAR,
+  slogan VARCHAR,
+  description VARCHAR,
+  category VARCHAR,
+  default_price BOOLEAN
  );
 
 
- ALTER TABLE Products ADD CONSTRAINT Products_pkey PRIMARY KEY (product_id);
+ ALTER TABLE Product ADD CONSTRAINT Products_pkey PRIMARY KEY (product_id);
 
- CREATE TABLE Features (
+ CREATE TABLE IF NOT EXISTS Features (
   product_id INTEGER,
   feature VARCHAR,
   value VARCHAR
@@ -22,7 +23,7 @@ CREATE TABLE Products (
 
  ALTER TABLE Features ADD CONSTRAINT Features_pkey PRIMARY KEY (product_id);
 
- CREATE TABLE Related (
+ CREATE TABLE IF NOT EXISTS Related (
   current_product_id INTEGER,
   related_product_id INTEGER
  );
@@ -30,7 +31,7 @@ CREATE TABLE Products (
 
  ALTER TABLE Related ADD CONSTRAINT Related_pkey PRIMARY KEY (current_product_id);
 
- CREATE TABLE Skus (
+ CREATE TABLE IF NOT EXISTS Skus (
   style_id BIGSERIAL,
   sku BIGSERIAL,
   quantity INTEGER,
@@ -40,7 +41,7 @@ CREATE TABLE Products (
 
  ALTER TABLE Skus ADD CONSTRAINT Skus_pkey PRIMARY KEY (style_id);
 
- CREATE TABLE Photos (
+ CREATE TABLE IF NOT EXISTS Photos (
   style_id BIGSERIAL,
   url VARCHAR,
   thumbnail_url VARCHAR
@@ -49,7 +50,7 @@ CREATE TABLE Products (
 
  ALTER TABLE Photos ADD CONSTRAINT Photos_pkey PRIMARY KEY (style_id);
 
- CREATE TABLE Styles (
+ CREATE TABLE IF NOT EXISTS Styles (
   style_id BIGSERIAL,
   product_id INTEGER,
   name VARCHAR,
