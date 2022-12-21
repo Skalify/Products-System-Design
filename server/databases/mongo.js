@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
 
-const URI = process.env.DB_URI || 'mongodb://localhost:27017/prodcuts';
+const URI = process.env.DB_URI || 'mongodb://localhost:27017/products';
 
 const options = {
   useNewUrlParser: true,
@@ -45,7 +45,7 @@ const photo = new Schema({
 });
 
 const styles = new Schema({
-  style_id: Number,
+  product_id: Number,
   name: String,
   sale_price: String,
   original_price: String,
