@@ -1,0 +1,41 @@
+{
+  "name": "products-system-design",
+  "version": "1.0.0",
+  "description": "Products System Design API",
+  "main": "index.js",
+  "scripts": {
+    "start": "npx nodemon --watch server server/index.js",
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Guccapi/Products-System-Design.git"
+  },
+  "author": "SaldanaThomas",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Guccapi/Products-System-Design/issues"
+  },
+  "homepage": "https://github.com/Guccapi/Products-System-Design#readme",
+  "dependencies": {
+    "axios": "^1.2.1",
+    "cors": "^2.8.5",
+    "csv-parser": "^3.0.0",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "fs": "^0.0.1-security",
+    "mongoose": "^6.8.1",
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.20",
+    "path": "^0.12.7",
+    "pg": "^8.8.0"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^5.16.5",
+    "eslint": "^8.30.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-jest": "^27.1.7",
+    "jest": "^29.3.1"
+  }
+}
