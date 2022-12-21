@@ -16,8 +16,49 @@ try {
   console.error(err);
 }
 
-const products = new Schema({
+const feature = new Schema({
+  product_id: Number,
+  feature: String,
+  value: String,
+});
 
+const products = new Schema({
+  product_id: Number,
+  name: String,
+  slogan: String,
+  description: String,
+  category: String,
+  default_price: Boolean,
+  features: [feature],
+});
+
+const sku = new Schema({
+  style_id: Number,
+  size: String,
+  quantity: Number,
+});
+
+const photo = new Schema({
+  style_id: Number,
+  url: String,
+  thumbnail_url: String,
+});
+
+const styles = new Schema({
+  style_id: Number,
+  name: String,
+  sale_price: String,
+  original_price: String,
+  default_style: Boolean,
+  photos: [photo],
+  skus: sku,
+});
+
+const related = new Schema({
+  current_product_id: Number,
+  related_product_id: Number,
 });
 
 mongoose.model('Products', products);
+mongoose.model('Styles', styles);
+mongoose.model('Related', related);
