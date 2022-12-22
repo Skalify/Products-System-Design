@@ -11,7 +11,7 @@ const options = {
 
 try {
   await mongoose.connect(URI, options);
-  console.log('');
+  console.log('Connection established');
 } catch (err) {
   console.error(err);
 }
