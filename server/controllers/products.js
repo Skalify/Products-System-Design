@@ -2,7 +2,6 @@ const {
   products: { getDBProducts, getDBProductInfo, getDBStyles, getDBRelated },
 } = require('../models');
 
-
 const getProducts = (req, res) => {
   getDBProducts((err, data) => {
     if (err) {
@@ -14,8 +13,7 @@ const getProducts = (req, res) => {
 };
 
 const getProductInfo = (req, res) => {
-  const id = 'test';
-  getDBProductInfo(id, (err, data) => {
+  getDBProductInfo(req.params.product_id, (err, data) => {
     if (err) {
       res.send(err).status(404);
     } else {
@@ -25,8 +23,7 @@ const getProductInfo = (req, res) => {
 };
 
 const getStyles = (req, res) => {
-  const id = 'test';
-  getDBStyles(id, (err, data) => {
+  getDBStyles(req.params.product_id, (err, data) => {
     if (err) {
       res.send(err).status(404);
     } else {
@@ -36,8 +33,7 @@ const getStyles = (req, res) => {
 };
 
 const getRelated = (req, res) => {
-  const id = 'test';
-  getDBRelated(id, (err, data) => {
+  getDBRelated(req.params.product_id, (err, data) => {
     if (err) {
       res.send(err).status(404);
     } else {

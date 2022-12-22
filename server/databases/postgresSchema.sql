@@ -2,68 +2,47 @@ DROP DATABASE IF EXISTS Products;
 
 CREATE DATABASE Products;
 
-CREATE TABLE IF NOT EXISTS Product (
-  product_id BIGSERIAL,
-  name VARCHAR,
-  slogan VARCHAR,
-  description VARCHAR,
-  category VARCHAR,
-  default_price BOOLEAN
+CREATE TABLE IF NOT EXISTS Products (
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(255),
+  slogan VARCHAR(255),
+  description VARCHAR(255),
+  category VARCHAR(255),
+  default_price INTEGER
  );
-
-
- ALTER TABLE Product ADD CONSTRAINT Products_pkey PRIMARY KEY (product_id);
 
  CREATE TABLE IF NOT EXISTS Features (
-  product_id INTEGER,
-  feature VARCHAR,
-  value VARCHAR
+  id SERIAL PRIMARY KEY,
+  product_id INTEGER REFERENCES Products(id),
+  feature VARCHAR(255),
+  value VARCHAR(255)
  );
-
-
- ALTER TABLE Features ADD CONSTRAINT Features_pkey PRIMARY KEY (product_id);
-
- CREATE TABLE IF NOT EXISTS Related (
-  current_product_id INTEGER,
-  related_product_id INTEGER
- );
-
-
- ALTER TABLE Related ADD CONSTRAINT Related_pkey PRIMARY KEY (current_product_id);
-
- CREATE TABLE IF NOT EXISTS Skus (
-  style_id BIGSERIAL,
-  sku BIGSERIAL,
-  quantity INTEGER,
-  size VARCHAR
- );
-
-
- ALTER TABLE Skus ADD CONSTRAINT Skus_pkey PRIMARY KEY (style_id);
-
- CREATE TABLE IF NOT EXISTS Photos (
-  style_id BIGSERIAL,
-  url VARCHAR,
-  thumbnail_url VARCHAR
- );
-
-
- ALTER TABLE Photos ADD CONSTRAINT Photos_pkey PRIMARY KEY (style_id);
 
  CREATE TABLE IF NOT EXISTS Styles (
-  style_id BIGSERIAL,
-  product_id INTEGER,
-  name VARCHAR,
-  original_price VARCHAR,
-  sale_price VARCHAR,
-  default_price BOOLEAN
+  id SERIAL PRIMARY KEY,
+  product_id INTEGER REFERENCES Products(id),
+  name VARCHAR(255),
+  sale_price INTEGER,
+  original_price INTEGER,
+  default_style BOOLEAN
  );
 
+ CREATE TABLE IF NOT EXISTS Skus (
+  id SERIAL PRIMARY KEY
+  style_id INTEGER REFERENCES Styles(id),
+  quantity INTEGER,
+  size VARCHAR(255)
+ );
 
- ALTER TABLE Styles ADD CONSTRAINT Styles_pkey PRIMARY KEY (style_id);
+ CREATE TABLE IF NOT EXISTS Photos (
+  id SERIAL PRIMARY KEY,
+  style_id INTEGER REFERENCES Styles(id),
+  url VARCHAR(255),
+  thumbnail_url VARCHAR(255)
+ );
 
- ALTER TABLE Products ADD CONSTRAINT Products_product_id_fkey FOREIGN KEY (product_id) REFERENCES Related(current_product_id);
- ALTER TABLE Products ADD CONSTRAINT Products_product_id_fkey FOREIGN KEY (product_id) REFERENCES Features(product_id);
- ALTER TABLE Skus ADD CONSTRAINT Skus_style_id_fkey FOREIGN KEY (style_id) REFERENCES Styles(style_id);
- ALTER TABLE Photos ADD CONSTRAINT Photos_style_id_fkey FOREIGN KEY (style_id) REFERENCES Styles(style_id);
- ALTER TABLE Styles ADD CONSTRAINT Styles_product_id_fkey FOREIGN KEY (product_id) REFERENCES Products(product_id);
+  CREATE TABLE IF NOT EXISTS Related (
+  id SERIAL PRIMARY KEY,
+  current_product_id INTEGER REFERENCES Products(id),
+  related_product_id INTEGER
+ );

@@ -6,17 +6,17 @@ const getDBProducts = (cb) => {
 };
 
 const getDBProductInfo = (id, cb) => {
-  console.log('productInfo: ', id);
+  console.log('productInfo for: ', id);
   cb(null, true);
 };
 
 const getDBStyles = (id, cb) => {
-  console.log('styles: ', id);
+  console.log('styles for: ', id);
   cb(null, true);
 };
 
 const getDBRelated = (id, cb) => {
-  console.log('related: ', id);
+  console.log('related for: ', id);
   cb(null, true);
 };
 

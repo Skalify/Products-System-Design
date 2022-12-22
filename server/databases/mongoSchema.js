@@ -22,7 +22,7 @@ const products = new Schema({
   slogan: String,
   description: String,
   category: String,
-  default_price: String,
+  default_price: Number,
   features: [{ feature: String, value: String }],
 });
 
@@ -31,8 +31,8 @@ const styles = new Schema({
   result: [{
     style_id: Number,
     name: String,
-    sale_price: String,
-    original_price: String,
+    sale_price: Number,
+    original_price: Number,
     default_style: Boolean,
     photos: [{ url: String, thumbnail_url: String }],
     skus: [{ sku: { size: String, quantity: Number } }],
