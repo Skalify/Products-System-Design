@@ -2,44 +2,50 @@ const {
   products: { getDBProducts, getDBProductInfo, getDBStyles, getDBRelated },
 } = require('../models');
 
+
+const getProducts = (req, res) => {
+  getDBProducts((err, data) => {
+    if (err) {
+      res.send(err).status(404);
+    } else {
+      res.send(data).status(200);
+    }
+  });
+};
+
+const getProductInfo = (req, res) => {
+  const id = 'test';
+  getDBProductInfo(id, (err, data) => {
+    if (err) {
+      res.send(err).status(404);
+    } else {
+      res.send(data).status(200);
+    }
+  });
+};
+
+const getStyles = (req, res) => {
+  const id = 'test';
+  getDBStyles(id, (err, data) => {
+    if (err) {
+      res.send(err).status(404);
+    } else {
+      res.send(data).status(200);
+    }
+  });
+};
+
+const getRelated = (req, res) => {
+  const id = 'test';
+  getDBRelated(id, (err, data) => {
+    if (err) {
+      res.send(err).status(404);
+    } else {
+      res.send(data).status(200);
+    }
+  });
+};
+
 module.exports = {
-  getProducts: (req, res) => {
-    getDBProducts((err, data) => {
-      if (err) {
-        res.send(err).status(404);
-      } else {
-        res.send(data).status(200);
-      }
-    });
-  },
-
-  getProductInfo: (req, res) => {
-    getDBProductInfo((err, data) => {
-      if (err) {
-        res.send(err).status(404);
-      } else {
-        res.send(data).status(200);
-      }
-    });
-  },
-
-  getStyles: (req, res) => {
-    getDBStyles((err, data) => {
-      if (err) {
-        res.send(err).status(404);
-      } else {
-        res.send(data).status(200);
-      }
-    });
-  },
-
-  getRelated: (req, res) => {
-    getDBRelated((err, data) => {
-      if (err) {
-        res.send(err).status(404);
-      } else {
-        res.send(data).status(200);
-      }
-    });
-  },
+  getProducts, getProductInfo, getStyles, getRelated,
 };

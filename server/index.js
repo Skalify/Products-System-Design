@@ -2,7 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
-const { products } = require('./routers');
+const { productsRouter } = require('./routers');
 
 const corsOptions = {
   origin: 'http://localhost',
@@ -13,12 +13,12 @@ const corsOptions = {
 const app = express();
 const PORT = process.env.PORT || 8081;
 
-products.use(cors(corsOptions));
+productsRouter.use(cors(corsOptions));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use(products);
+app.use(productsRouter);
 app.use(morgan('dev'));
 
 app.listen(PORT, console.log(`Now listening on http://localhost:${PORT}`));
