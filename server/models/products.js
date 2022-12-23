@@ -17,9 +17,7 @@ const getDBProductInfo = (id, cb) => {
       const data = rows[0];
       pool.query(`SELECT feature, value FROM features WHERE product_id = ${id}`)
         .then((features) => {
-          data.features = features.rows.length
-            ? features.rows
-            : [{ feature: null, value: null }];
+          data.features = features.rows;
           cb(null, data);
         })
         .catch((err) => cb(err));
@@ -39,7 +37,7 @@ const getDBStyles = (id, cb) => {
           pool.query(`SELECT id, quantity, size FROM skus WHERE style_id = ${id}`)
             .then((skus) => {
               data.skus = skus.rows.length
-                ? { sku: skus.rows }
+                ? { sku: skus.rows } // needs refactor
                 : { null: { quantity: null, size: null } };
               cb(null, data);
             })
