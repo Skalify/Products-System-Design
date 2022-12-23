@@ -1,23 +1,24 @@
-// const db = require('pg');
+const { Pool } = require('pg');
+
+const pool = new Pool({
+  host: 'localhost',
+  database: 'products',
+});
 
 const getDBProducts = (cb) => {
-  console.log('products');
-  cb(null, true);
+  pool.query('SELECT * FROM products LIMIT 10', (err, data) => cb(err, data));
 };
 
 const getDBProductInfo = (id, cb) => {
-  console.log('productInfo for: ', id);
-  cb(null, true);
+  pool.query('SELECT * FROM products LIMIT 10', (err, data) => cb(err, data));
 };
 
 const getDBStyles = (id, cb) => {
-  console.log('styles for: ', id);
-  cb(null, true);
+  pool.query('SELECT * FROM products LIMIT 10', (err, data) => cb(err, data));
 };
 
 const getDBRelated = (id, cb) => {
-  console.log('related for: ', id);
-  cb(null, true);
+  pool.query('SELECT * FROM products LIMIT 10', (err, data) => cb(err, data));
 };
 
 module.exports = {
