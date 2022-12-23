@@ -45,9 +45,9 @@ fs.createReadStream(path.join(__dirname, './files/styles.csv'))
 
 fs.createReadStream(path.join(__dirname, './files/skus.csv'))
   .pipe(csv())
-  .on('data', ({ id, style_id, quantity, size }) => {
+  .on('data', ({ id, styleId, quantity, size }) => {
     size.replaceAll("'", "''");
-    pool.query(`INSERT INTO skus VALUES (${id}, ${style_id}, ${quantity}, '${size}')`);
+    pool.query(`INSERT INTO skus VALUES (${id}, ${styleId}, ${quantity}, '${size}')`);
   })
   .on('end', () => {
     console.log('Skus Done!');
@@ -55,10 +55,10 @@ fs.createReadStream(path.join(__dirname, './files/skus.csv'))
 
 fs.createReadStream(path.join(__dirname, './files/photos.csv'))
   .pipe(csv())
-  .on('data', ({ id, style_id, url, thumbnail_url }) => {
+  .on('data', ({ id, styleId, url, thumbnail_url }) => {
     url.replaceAll("'", "''");
-    thumbnail_url.replaceaAll("'", "''");
-    pool.query(`INSERT INTO photos VALUES (${id}, ${style_id}, '${url}', '${thumbnail_url}')`);
+    thumbnail_url.replaceAll("'", "''");
+    pool.query(`INSERT INTO photos VALUES (${id}, ${styleId}, '${url}', '${thumbnail_url}')`);
   })
   .on('end', () => {
     console.log('Photos Done!');
