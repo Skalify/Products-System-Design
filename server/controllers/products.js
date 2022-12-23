@@ -2,8 +2,8 @@ const {
   products: { getDBProducts, getDBProductInfo, getDBStyles, getDBRelated },
 } = require('../models');
 
-const getProducts = (req, res) => {
-  getDBProducts((err, data) => {
+const getProducts = ({ query: { page, count } }, res) => {
+  getDBProducts(page, count, (err, data) => {
     if (err) {
       res.send(err).status(404);
     } else {

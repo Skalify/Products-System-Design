@@ -11,37 +11,37 @@ CREATE TABLE IF NOT EXISTS Products (
   slogan VARCHAR(255) NOT NULL,
   description VARCHAR(1000) NOT NULL,
   category VARCHAR(255) NOT NULL,
-  default_price INTEGER NOT NULL
+  default_price VARCHAR(255) NOT NULL
  );
 
  CREATE TABLE IF NOT EXISTS Features (
   id SERIAL PRIMARY KEY,
   product_id INTEGER REFERENCES Products(id),
-  feature VARCHAR(255) NOT NULL,
-  value VARCHAR(255) NOT NULL
+  feature VARCHAR(255),
+  value VARCHAR(255)
  );
 
  CREATE TABLE IF NOT EXISTS Styles (
   id SERIAL PRIMARY KEY,
   product_id INTEGER REFERENCES Products(id),
   name VARCHAR(255) NOT NULL,
-  sale_price INTEGER,
-  original_price INTEGER NOT NULL,
+  sale_price VARCHAR(255),
+  original_price VARCHAR(255) NOT NULL,
   default_style BOOLEAN NOT NULL
  );
 
  CREATE TABLE IF NOT EXISTS Skus (
   id SERIAL PRIMARY KEY,
   style_id INTEGER REFERENCES Styles(id),
-  quantity INTEGER NOT NULL,
-  size VARCHAR(255) NOT NULL
+  quantity INTEGER,
+  size VARCHAR(255)
  );
 
  CREATE TABLE IF NOT EXISTS Photos (
   id SERIAL PRIMARY KEY,
   style_id INTEGER REFERENCES Styles(id),
-  url VARCHAR(1000) NOT NULL,
-  thumbnail_url VARCHAR(1000) NOT NULL
+  url VARCHAR(1000),
+  thumbnail_url VARCHAR(1000)
  );
 
   CREATE TABLE IF NOT EXISTS Related (
