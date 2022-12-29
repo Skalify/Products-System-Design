@@ -50,17 +50,18 @@ fs.createReadStream(path.join(__dirname, './files/features.csv'))
 
 const styles = [];
 const stylesData = new pgp.helpers.ColumnSet(
-  ['id', 'product_id', 'name', 'sale_price', 'original_price', 'default_style'],
+  ['style_id', 'product_id', 'name', 'sale_price', 'original_price', 'default_style'],
   { table: 'styles' },
 );
 
 fs.createReadStream(path.join(__dirname, './files/styles.csv'))
   .pipe(csv())
-  .on('data', ({ id, product_id, name, sale_price, original_price, default_style }) => {
+  .on('data', ({ id, productId, name, sale_price, original_price, default_style }) => {
     default_style = Boolean(default_style);
     name.replaceAll("'", "''");
-    console.log('Styles: ', id);
-    styles.push({ id, product_id, name, sale_price, original_price, default_style });
+    const style_id = id;
+    const product_id = productId;
+    styles.push({ style_id, product_id, name, sale_price, original_price, default_style });
   })
   .on('end', () => {
     db.none(pgp.helpers.insert(styles, stylesData));
@@ -76,9 +77,10 @@ const skusData = new pgp.helpers.ColumnSet(
 
 fs.createReadStream(path.join(__dirname, './files/skus.csv'))
   .pipe(csv())
-  .on('data', ({ id, style_id, quantity, size }) => {
+  .on('data', ({ id, styleId, quantity, size }) => {
     size.replaceAll("'", "''");
-    console.log('Skus: ', id);
+    console.log('Skus: ', styleId);
+    const style_id = styleId;
     skus.push({ id, style_id, quantity, size });
   })
   .on('end', () => {
@@ -117,10 +119,10 @@ const photosData = new pgp.helpers.ColumnSet(
 
 fs.createReadStream(path.join(__dirname, './files/photos.csv'))
   .pipe(csv())
-  .on('data', ({ id, style_id, url, thumbnail_url }) => {
+  .on('data', ({ id, styleId, url, thumbnail_url }) => {
     url.replaceAll("'", "''");
     thumbnail_url.replaceAll("'", "''");
-    console.log('Photos: ', id);
+    const style_id = styleId;
     photos.push({ id, style_id, url, thumbnail_url });
   })
   .on('end', () => {

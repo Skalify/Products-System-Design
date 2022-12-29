@@ -26,7 +26,7 @@ const getDBProductInfo = (id, cb) => {
 };
 
 const getDBStyles = (id, cb) => {
-  pool.query(`SELECT * FROM styles WHERE id = ${id}`)
+  pool.query(`SELECT * FROM styles WHERE style_id = ${id}`)
     .then(({ rows }) => {
       const data = rows[0];
       pool.query(`SELECT thumbnail_url, url FROM photos WHERE style_id = ${id}`)
@@ -37,7 +37,11 @@ const getDBStyles = (id, cb) => {
           pool.query(`SELECT id, quantity, size FROM skus WHERE style_id = ${id}`)
             .then((skus) => {
               data.skus = skus.rows.length
-                ? { sku: skus.rows } // needs refactor
+                ? skus.rows.reduce((acc, sku) => {
+                  acc[sku.id] = { quantity: sku.quantity, size: sku.size };
+                  console.log('test', acc);
+                  return acc;
+                }, {})
                 : { null: { quantity: null, size: null } };
               cb(null, data);
             })
