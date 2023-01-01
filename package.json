@@ -4,8 +4,8 @@
   "description": "Products System Design API",
   "main": "index.js",
   "scripts": {
-    "start": "npx nodemon --watch server server/index.js",
-    "test": "npm test"
+    "start": "npx nodemon --watch server server/server.js",
+    "test": "jest --config ./jest.config.cjs --forceExit --coverage --runInBand"
   },
   "repository": {
     "type": "git",
@@ -33,10 +33,12 @@
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.16.5",
+    "babel-jest": "^29.3.1",
     "eslint": "^8.30.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-jest": "^27.1.7",
-    "jest": "^29.3.1"
+    "jest": "^29.3.1",
+    "supertest": "^6.3.3"
   }
 }

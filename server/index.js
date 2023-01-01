@@ -11,7 +11,6 @@ const corsOptions = {
 };
 
 const app = express();
-const PORT = process.env.PORT || 8081;
 
 productsRouter.use(cors(corsOptions));
 
@@ -21,4 +20,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(productsRouter);
 app.use(morgan('dev'));
 
-app.listen(PORT, console.log(`Now listening on http://localhost:${PORT}`));
+app.set('port', process.env.PORT || 8081);
+
+module.exports = app;
