@@ -1,0 +1,30 @@
+import http from "k6/http";
+import { check, sleep } from "k6";
+import { Counter } from "k6/metrics";
+
+let ErrorCount = new Counter("errors");
+
+export const options = {
+  vus: 100,
+  duration: "10s",
+  thresholds: {
+    errors: ["count<10"]
+  }
+};
+
+// 1k RPS each route
+// Measure RPS, Latency, and Error Rate for each request.
+
+export default function() {
+  const path = Math.random() < 0.9 ? "200" : "500";
+
+  let res = http.get(`http://localhost:8080/products`);
+  let success = check(res, {
+    "status is 200": r => r.status === 200
+  });
+  if (!success) {
+    ErrorCount.add(1);
+  }
+
+  sleep(2);
+}
