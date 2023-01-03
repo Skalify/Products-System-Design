@@ -4,9 +4,6 @@ import { Counter } from "k6/metrics";
 
 let ErrorCount = new Counter("errors");
 
-// 1k RPS each route
-// Measure RPS, Latency, and Error Rate for each request.
-
 export const options = {
   scenarios: {
     constant_request_rate: {
@@ -18,10 +15,14 @@ export const options = {
       maxVUs: 50, // if the preAllocatedVUs are not enough, we can initialize more
     },
   },
+  thresholds: {
+    http_req_failed: ['rate<0.01'], // http errors should be less than 1%
+    http_req_duration: ['p(100)<2000'], //http response should be less than 2000ms
+  },
 };
 
 export default function() {
-  let res = http.get(`http://localhost:8080/products/1/styles`);
+  let res = http.get(`http://localhost:8080/products/1000000/styles`);
   let success = check(res, {
     "status is 200": r => r.status === 200
   });
