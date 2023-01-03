@@ -15,7 +15,7 @@ export const options = {
 };
 
 export default function() {
-  let res = http.get(`http://localhost:8080/products/?page=10000000`);
+  let res = http.get(`http://localhost:8080/products/?count=5&page=100`);
   let success = check(res, {
     "status is 200": r => r.status === 200
   });

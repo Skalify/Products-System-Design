@@ -14,12 +14,11 @@ if (cluster.isPrimary) {
 
   cluster.on('exit', (worker, code, signal) => {
     console.log(`worker ${worker.process.pid} died`);
-    // cluster.fork();
+    cluster.fork();
   });
 } else {
   const app = require('./index.js');
   app.listen(app.get('port'), () => {
-    console.log(`App is running on http://localhost:${app.get('port')}`);
+    console.log(`Worker ${process.pid} running on http://localhost:${app.get('port')}`);
   });
-  console.log(`Worker ${process.pid} started`);
 }
