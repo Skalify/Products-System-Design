@@ -22,5 +22,4 @@ export default function() {
   if (!success) {
     ErrorCount.add(1);
   }
-  sleep(2);
 }
