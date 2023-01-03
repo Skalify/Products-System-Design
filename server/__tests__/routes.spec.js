@@ -4,7 +4,7 @@ const app = require('../index');
 describe('Test products route', () => {
   test('It should respond to the GET method', async () => {
     const res = await request(app)
-      .get('/products');
+      .get('/products/?page=1000000');
 
     expect(res.statusCode).toBe(200);
   });
@@ -13,7 +13,7 @@ describe('Test products route', () => {
 describe('Test product info route', () => {
   test('It should respond to the GET method', async () => {
     const res = await request(app)
-      .get('/products/10000');
+      .get('/products/1000000');
 
     expect(res.statusCode).toBe(200);
   });
@@ -22,7 +22,7 @@ describe('Test product info route', () => {
 describe('Test styles route', () => {
   test('It should respond to the GET method', async () => {
     const res = await request(app)
-      .get('/products/100000/related');
+      .get('/products/1000000/related');
 
     expect(res.statusCode).toBe(200);
   });
@@ -31,7 +31,7 @@ describe('Test styles route', () => {
 describe('Test related route', () => {
   test('It should respond to the GET method', async () => {
     const res = await request(app)
-      .get('/products/100000/related');
+      .get('/products/1000000/related');
 
     expect(res.statusCode).toBe(200);
   });
