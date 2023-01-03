@@ -1,10 +1,8 @@
-DROP DATABASE IF EXISTS Products;
-
-CREATE DATABASE Products;
+CREATE DATABASE IF NOT EXISTS Products;
 
 -- DROP TABLE IF EXISTS Related;
 -- DROP TABLE IF EXISTS Skus;
-DROP TABLE IF EXISTS Photos;
+-- DROP TABLE IF EXISTS Photos;
 -- DROP TABLE IF EXISTS Styles;
 -- DROP TABLE IF EXISTS Features;
 -- DROP TABLE IF EXISTS Products;
@@ -18,38 +16,43 @@ CREATE TABLE IF NOT EXISTS Products (
   default_price VARCHAR(255) NOT NULL
  );
 
- CREATE TABLE IF NOT EXISTS Features (
-  id SERIAL PRIMARY KEY,
-  product_id INTEGER REFERENCES Products(id),
-  feature VARCHAR(255),
-  value VARCHAR(255)
- );
+CREATE TABLE IF NOT EXISTS Features (
+id SERIAL PRIMARY KEY,
+product_id INTEGER REFERENCES Products(id),
+feature VARCHAR(255),
+value VARCHAR(255)
+);
 
- CREATE TABLE IF NOT EXISTS Styles (
-  style_id SERIAL PRIMARY KEY,
-  product_id INTEGER REFERENCES Products(id),
-  name VARCHAR(255) NOT NULL,
-  sale_price VARCHAR(255),
-  original_price VARCHAR(255) NOT NULL,
-  default_style BOOLEAN NOT NULL
- );
+CREATE TABLE IF NOT EXISTS Styles (
+style_id SERIAL PRIMARY KEY,
+product_id INTEGER REFERENCES Products(id),
+name VARCHAR(255) NOT NULL,
+sale_price VARCHAR(255),
+original_price VARCHAR(255) NOT NULL,
+default_style BOOLEAN NOT NULL
+);
 
- CREATE TABLE IF NOT EXISTS Photos (
-  id SERIAL PRIMARY KEY,
-  style_id INTEGER REFERENCES Styles(style_id),
-  url VARCHAR(1000),
-  thumbnail_url VARCHAR(1000)
- );
+CREATE TABLE IF NOT EXISTS Photos (
+id SERIAL PRIMARY KEY,
+style_id INTEGER REFERENCES Styles(style_id),
+url VARCHAR(1000),
+thumbnail_url VARCHAR(1000)
+);
 
- CREATE TABLE IF NOT EXISTS Skus (
-  id SERIAL PRIMARY KEY,
-  style_id INTEGER REFERENCES Styles(style_id),
-  quantity INTEGER,
-  size VARCHAR(255)
- );
+CREATE TABLE IF NOT EXISTS Skus (
+id SERIAL PRIMARY KEY,
+style_id INTEGER REFERENCES Styles(style_id),
+quantity INTEGER,
+size VARCHAR(255)
+);
 
-  CREATE TABLE IF NOT EXISTS Related (
-  id SERIAL PRIMARY KEY,
-  current_product_id INTEGER REFERENCES Products(id),
-  related_product_id INTEGER NOT NULL
- );
+CREATE TABLE IF NOT EXISTS Related (
+id SERIAL PRIMARY KEY,
+current_product_id INTEGER REFERENCES Products(id),
+related_product_id INTEGER NOT NULL
+);
+
+Create INDEX features_index ON Features (product_id);
+Create INDEX photos_index ON Photos (style_id);
+Create INDEX skus_index ON Skus (style_id);
+Create INDEX related_index ON Related (current_product_id);
