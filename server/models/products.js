@@ -6,7 +6,7 @@ const pool = new Pool({
 });
 
 const getDBProducts = (page, count, cb) => {
-  pool.query(`SELECT * FROM products LIMIT ${count || 5}`)
+  pool.query(`SELECT * FROM products LIMIT ${count || 5} OFFSET ${page || 0}`)
     .then(({ rows }) => cb(null, rows))
     .catch((err) => cb(err));
 };
