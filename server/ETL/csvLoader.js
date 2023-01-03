@@ -1,9 +1,10 @@
+require('dotenv').config();
 const csv = require('csv-parser');
 const fs = require('fs');
 const path = require('path');
 const pgp = require('pg-promise')({});
 
-const cn = 'postgres://thomas:@localHost:5432/products';
+const cn = process.env.PG;
 const db = pgp(cn);
 
 const products = [];

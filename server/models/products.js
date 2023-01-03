@@ -1,8 +1,9 @@
+require('dotenv').config();
 const { Pool } = require('pg');
 
 const pool = new Pool({
-  host: 'localhost',
-  database: 'products',
+  host: process.env.HOST,
+  database: process.env.DB,
 });
 
 const getDBProducts = (page, count, cb) => {
