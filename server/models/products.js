@@ -23,7 +23,7 @@ const getDBProductInfo = (id, cb) => {
 
 const getDBStyles = async (id, cb) => {
   pool.query(`SELECT * FROM styles WHERE style_id = ${id}`)
-    .then(({ rows }) => cb(null, rows))
+    .then(({ rows }) => cb(null, rows[0]))
     .catch((err) => cb(err));
 };
 
