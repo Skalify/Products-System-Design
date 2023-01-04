@@ -7,74 +7,21 @@ const pool = new Pool({
 });
 
 const getDBProducts = (page, count, cb) => {
-  pool.query(`SELECT * FROM products LIMIT ${count || 5} OFFSET ${page || 0}`)
+  pool.query(`SELECT id, name, slogan, description, category, default_price FROM products LIMIT ${count || 5} OFFSET ${page || 0}`)
     .then(({ rows }) => cb(null, rows))
     .catch((err) => cb(err));
 };
 
 const getDBProductInfo = (id, cb) => {
   pool.query(`SELECT * FROM products WHERE id = ${id}`)
-    .then(({ rows }) => {
-      const data = rows[0];
-      pool.query(`SELECT feature, value FROM features WHERE product_id = ${id}`)
-        .then((features) => {
-          data.features = features.rows;
-          cb(null, data);
-        })
-        .catch((err) => cb(err));
-    })
+    .then(({ rows }) => cb(null, rows[0]))
     .catch((err) => cb(err));
 };
 
 const getDBStyles = async (id, cb) => {
-  let results = {};
-  try {
-    await pool.query(`SELECT * FROM styles WHERE style_id = ${id}`)
-      .then(({ rows }) => results = rows[0]);
-    await pool.query(`SELECT thumbnail_url, url FROM photos WHERE style_id = ${id}`)
-      .then((photos) => {
-        results.photos = photos.rows.length
-          ? photos.rows
-          : [{ thumbnail_url: null, url: null }]
-      });
-    await pool.query(`SELECT id, quantity, size FROM skus WHERE style_id = ${id}`)
-    .then((skus) => {
-      results.skus = skus.rows.length
-        ? skus.rows.reduce((acc, sku) => {
-          acc[sku.id] = { quantity: sku.quantity, size: sku.size };
-          return acc;
-        }, {})
-        : { null: { quantity: null, size: null } }
-    });
-  } catch {
-
-  } finally {
-    cb(null, results);
-  }
-
-  // pool.query(`SELECT * FROM styles WHERE style_id = ${id}`)
-  //   .then(({ rows }) => {
-  //     const data = rows[0];
-  //     pool.query(`SELECT thumbnail_url, url FROM photos WHERE style_id = ${id}`)
-  //       .then((photos) => {
-  //         data.photos = photos.rows.length
-  //           ? photos.rows
-  //           : [{ thumbnail_url: null, url: null }];
-  //         pool.query(`SELECT id, quantity, size FROM skus WHERE style_id = ${id}`)
-  //           .then((skus) => {
-  //             data.skus = skus.rows.length
-  //               ? skus.rows.reduce((acc, sku) => {
-  //                 acc[sku.id] = { quantity: sku.quantity, size: sku.size };
-  //                 return acc;
-  //               }, {})
-  //               : { null: { quantity: null, size: null } };
-  //             cb(null, data);
-  //           })
-  //           .catch((err) => cb(err));
-  //       })
-  //       .catch((err) => cb(err));
-  //   })
-  //   .catch((err) => cb(err));
+  pool.query(`SELECT * FROM styles WHERE style_id = ${id}`)
+    .then(({ rows }) => cb(null, rows))
+    .catch((err) => cb(err));
 };
 
 const getDBRelated = (id, cb) => {
