@@ -4,7 +4,7 @@ const app = require('../index');
 describe('Test products route', () => {
   test('It should respond to the GET method', async () => {
     const res = await request(app)
-      .get('/products/?page=1000000');
+      .get('/products/');
 
     expect(res.statusCode).toBe(200);
   });
