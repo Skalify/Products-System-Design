@@ -17,6 +17,10 @@ productsRouter.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+app.get(`/${process.env.LOADERIO_KEY}`, (req, res) => {
+  res.send(process.env.LOADERIO_KEY);
+});
+
 app.use(productsRouter);
 app.use(morgan('dev'));
 
